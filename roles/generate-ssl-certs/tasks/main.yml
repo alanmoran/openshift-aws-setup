@@ -8,7 +8,7 @@
     name: "{{epel_repo_url}}"
     state: present
   register: result
-  until: '"failed" not in result'
+  until: result is succeeded
   retries: 5
   delay: 10
   become: true
@@ -16,7 +16,7 @@
 - name: yum update
   yum: name=* state=latest
   register: result
-  until: result | succeeded
+  until: result is succeeded
   retries: 3
   delay: 5      
   become: true
@@ -26,7 +26,7 @@
     name: "https://www.rpmfind.net/linux/fedora/linux/updates/25/x86_64/Packages/p/pyOpenSSL-16.2.0-2.fc25.noarch.rpm"
     state: present
   register: result
-  until: result | succeeded
+  until: result is succeeded
   retries: 3
   delay: 10
   become: true
